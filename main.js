@@ -1,4 +1,4 @@
-const sha256 = require('cryptoJS-master/sha256');
+const sha256 = require('cryptoJS-master/components/sha256');
 
 class Block {
   constructor(index, timestamp, data, previoushash = ' '){
