@@ -1,5 +1,5 @@
 class Block {
-  constructor(index, timestamp, data, previoushash = ' '){
+  constructor(index, timestamps, data, previoushash = ' '){
     this.index = index;
     this.timestamps = timestamps;
     this.data = data;
