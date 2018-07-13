@@ -24,7 +24,7 @@ class Blockchain{
   }
   
   getLatestBlock(){
-    return this.chain(this.chain.lemgth - 1);
+    return this.chain(this.chain.length - 1);
   }
   
   addBlock(newBlock){
@@ -56,7 +56,7 @@ masseCoin.addBlock(new Block(1, "12/07/2018", { amount: 4}));
 masseCoin.addBlock(new Block(2, "13/07/2018", { amount: 5}));
 
 
-
+console.log('Is blockchain valid?' + massecoin.isChainValid());
 
 
 
