@@ -1,26 +1,35 @@
 const sha256 = require('cryptoJS-master/components/sha256');
-
+class Transcations {
+  constructor(
+}
 class Block {
-  constructor(index, timestamp, data, previoushash = ' '){
-    this.index = index;
+  constructor(timestamp, transactions, previoushash = ' '){
     this.timestamp = timestamp;
-    this.data = data;
+    this.transactions = transactions;
     this.previoushash = previoushash;
     this.hash = this.calculateHash();
+    this.nonce = 0;
     }
   calculateHash(){
-      return sha256(this.index + this.previoushash + this.timestamp + JSON.stringify(this.data)).toString();
+      return sha256(this.previoushash + this.timestamp + JSON.stringify(this.transactions) + this.nonce).toString();
     }
-  
+  mineBlock(difficulty){
+    while(this.hash.substring(0 ,difficulty) !== Array(difficulty + 1).join("0")){
+      this.nonce++;
+      this.hash = this.calculateHash();
+    }
+    console.log("Block mined :" + this.Hash);
+  }
 }
 
 class Blockchain{
  constructor(){
    this.chain = [this.createGenesisBlock()];
+   this.difficulty = 2;
  }
   
   createGenesisBlock(){
-   return new Block(0, "01/01/2018", "Genesis block", "0"); 
+   return new Block("01/01/2018", "Genesis block", "0"); 
   }
   
   getLatestBlock(){
@@ -29,7 +38,7 @@ class Blockchain{
   
   addBlock(newBlock){
     newBlock.previousHash = this.getLatestBlock().hash;
-    newBlock.hash = newBlock.calculateHash();
+    newBlock.mineBlock(this.difficulty);
     this.chain.push(newBlock);
   }
   
@@ -52,12 +61,6 @@ class Blockchain{
 }
 
 let masseCoin = new Blockchain();
-masseCoin.addBlock(new Block(1, "12/07/2018", { amount: 4}));
-masseCoin.addBlock(new Block(2, "13/07/2018", { amount: 5}));
-
-
-console.log('Is blockchain valid?' + massecoin.isChainValid());
-
 
 
 
